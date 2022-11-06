@@ -1,4 +1,4 @@
-import { transformFromAstAsync } from '@babel/core'
+import { transformFromAstSync } from '@babel/core'
 import * as parser from '@babel/parser'
 import * as fs from 'fs'
 import traverse from '@babel/traverse'
@@ -10,7 +10,7 @@ type IParserType = typeof parser.parse;
 type IAst = ReturnType<IParserType>;
 
 export class Parser {
-  public getAst(path: string): IAst {
+  public parseSource2Ast(path: string): IAst {
     const sourceContent = fs.readFileSync(path, 'utf8');
     return parser.parse(sourceContent, {
       sourceType: 'module',
@@ -23,7 +23,7 @@ export class Parser {
     traverse(ast as Node, { 
       ImportDeclaration({ node }) {
         const importPath = node.source.value;
-        const absolutePath = './' + path.join(sourceDir, importPath);
+        const absolutePath = path.resolve('./', sourceDir, importPath);
         dependencies[importPath] = absolutePath;
       }
     });
@@ -31,5 +31,11 @@ export class Parser {
     return dependencies;
   }
 
-  public transformCode() {}
+  public transformCode(ast: IAst): string {
+    const transformResult = transformFromAstSync(ast as Node, undefined, {
+      presets: ['@babel/preset-env']
+    }) || {};
+
+    return transformResult?.code || '';
+  }
 }
