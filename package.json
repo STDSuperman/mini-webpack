@@ -1,0 +1,30 @@
+{
+  "name": "mini-webpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsx ./build.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STDSuperman/mini-webpack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STDSuperman/mini-webpack/issues"
+  },
+  "homepage": "https://github.com/STDSuperman/mini-webpack#readme",
+  "dependencies": {
+    "@babel/core": "7.20.2",
+    "@babel/parser": "7.20.2",
+    "@babel/preset-env": "7.20.2",
+    "@babel/traverse": "7.20.1"
+  }
+}
